@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>TEKA-TEKI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0fff0; /* Hijau muda */
+            padding: 30px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e8b57;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #256f46;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>TEKA-TEKI</h1>
+
+    <div class="container">
+        <p>
+            Aku adalah seekor hewan. Jumlah kakiku ada empat buah. Aku memiliki ekor. Aku juga memiliki belalai. <br>
+            <strong>Siapakah aku?</strong>
+        </p>
+
+        <input type="text" id="jawaban" placeholder="Tulis jawabanmu di sini...">
+        <button onclick="cekJawaban()">Cek Jawaban</button>
+
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        function cekJawaban() {
+            const input = document.getElementById("jawaban").value.trim().toLowerCase();
+            const feedback = document.getElementById("feedback");
+
+            if (input === "gajah") {
+                feedback.textContent = "Jawaban Anda benar, hebat!";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Jawaban Anda salah, silahkan coba lagi.";
+                feedback.style.color = "red";
+            }
+        }
+    </script>
+
+</body>
+</html>
