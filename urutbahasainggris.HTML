@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Urutkan Kata Bahasa Inggris</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ccffcc; /* Hijau muda */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background-color: #ccffcc; /* Hijau muda */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .instruction {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        #word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .word {
+            background-color: #ffffff;
+            padding: 10px 14px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            cursor: grab;
+            user-select: none;
+        }
+
+        #text-area {
+            width: 100%;
+            min-height: 60px;
+            background-color: white;
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #999;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-right: 10px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #27632a;
+        }
+
+        #feedback {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Urutkan Kata Bahasa Inggris</h1>
+
+    <div class="container">
+        <p class="instruction">
+            Silakan <strong>drag</strong> kata-kata berikut ke dalam kotak teks di bawah ini untuk menyusun kalimat yang benar:
+        </p>
+
+        <div id="word-bank">
+            <div class="word" draggable="true">I</div>
+            <div class="word" draggable="true">am</div>
+            <div class="word" draggable="true">going</div>
+            <div class="word" draggable="true">to</div>
+            <div class="word" draggable="true">the</div>
+            <div class="word" draggable="true">market</div>
+        </div>
+
+        <div id="text-area" ondragover="allowDrop(event)" ondrop="dropWord(event)"></div>
+
+        <button onclick="cekJawaban()">Hasil</button>
+        <button onclick="resetAll()">Reset</button>
+
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        let draggedWord = null;
+
+        document.querySelectorAll('.word').forEach(word => {
+            word.addEventListener('dragstart', function(e) {
+                draggedWord = e.target;
+            });
+        });
+
+        function allowDrop(e) {
+            e.preventDefault();
+        }
+
+        function dropWord(e) {
+            e.preventDefault();
+            if (draggedWord) {
+                const textArea = document.getElementById("text-area");
+                textArea.textContent += draggedWord.textContent + " ";
+                draggedWord.remove(); // menghilangkan dari word bank
+                draggedWord = null;
+            }
+        }
+
+        function cekJawaban() {
+            const text = document.getElementById("text-area").textContent.trim();
+            const feedback = document.getElementById("feedback");
+            const correct = "I am going to the market";
+
+            if (text === correct) {
+                feedback.textContent = "Hebat jawaban anda benar";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Jawaban anda salah, silahkan coba lagi.";
+                feedback.style.color = "red";
+            }
+        }
+
+        function resetAll() {
+            const wordBank = document.getElementById("word-bank");
+            wordBank.innerHTML = `
+                <div class="word" draggable="true">I</div>
+                <div class="word" draggable="true">am</div>
+                <div class="word" draggable="true">going</div>
+                <div class="word" draggable="true">to</div>
+                <div class="word" draggable="true">the</div>
+                <div class="word" draggable="true">market</div>
+            `;
+
+            // Re-attach event listener
+            document.querySelectorAll('.word').forEach(word => {
+                word.addEventListener('dragstart', function(e) {
+                    draggedWord = e.target;
+                });
+            });
+
+            document.getElementById("text-area").textContent = "";
+            document.getElementById("feedback").textContent = "";
+        }
+    </script>
+</body>
+</html>
